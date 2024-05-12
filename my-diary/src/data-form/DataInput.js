@@ -112,7 +112,7 @@ export function DataForm() {
                                 <td>
                                     <InputLabel htmlFor="my-input">What's next?</InputLabel>
                                     <Input id="my-input" name="my-input" aria-describedby="my-helper-text" />
-                                    <FormHelperText id="my-helper-text">Your plan</FormHelperText>
+                                    {/* <FormHelperText id="my-helper-text">Your plan</FormHelperText> */}
                                 </td>
 
                                 <td>
