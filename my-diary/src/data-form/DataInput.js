@@ -4,7 +4,15 @@ import * as React from 'react';
 import UpdateIcon from '@mui/icons-material/Update';
 import TaskIcon from '@mui/icons-material/Task';
 import SaveIcon from '@mui/icons-material/Save';
-
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import EditIcon from '@mui/icons-material/Edit';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 export function DataForm() {
     //var toDoList = [];
@@ -94,7 +102,9 @@ export function DataForm() {
             sx={{ minHeight: '100vh' }}
             margin={2}
         >
-            <Grid item xs={3}>
+            <Grid item xs={3}
+                alignItems="center"
+                justifyContent="center">
                 <form onSubmit={handleSubmit}>
                     <FormControl>
                         <table>
@@ -120,37 +130,34 @@ export function DataForm() {
                 </div>
             </Grid>
 
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', alignItems: 'center' }}>
-                {items.map((value, index) => (
-                    <ListItem
-                        key={index}
-                        disableGutters
-                    >
-                        <table>
-                            <tr>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                {!itemsInEditMode[index] && <ListItemText id={`ListItem:${index}:${value}`} primary={`${value}`} />}
+            {
+                items.length > 0 &&
+                <Table
+                    aria-label="basic table"
+                    alignItems="center"
+                    justifyContent="center"
+                    style={{ width: '60%', alignItems: 'center' }}>
+                    <thead>
+                        <tr>
+                            <th style={{ width: '80%', alignItems: 'center' }}>Task Details</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        {items.map((value, index) => (
+
+                            <tr >
+                                <td >
+                                    <table >
+                                        <tr >
+                                            <td >
+                                                {!itemsInEditMode[index] && <p style={{ alignItems: 'center' }}>{value}</p>}
                                             </td>
                                             <td>
                                                 {
                                                     itemsInEditMode[index] &&
-                                                    <div>
-                                                        <table>
-                                                            <tr>
-                                                                <td>
-                                                                    <Input id={`EditItem:${index}:${value}`} name={`EditItem:${index}:${value}`} defaultValue={`${value}`} aria-describedby="my-helper-text" />
-                                                                </td>
-                                                                <td>
-                                                                    <Button variant="contained" onClick={handleEditConfirmationButtonClick(index)}>
-                                                                        <SaveIcon />
-                                                                    </Button>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
+                                                    <Input id={`EditItem:${index}:${value}`} name={`EditItem:${index}:${value}`} defaultValue={`${value}`} aria-describedby="my-helper-text" />
                                                 }
                                             </td>
                                         </tr>
@@ -159,27 +166,38 @@ export function DataForm() {
 
                                 <td>
                                     {
+                                        itemsInEditMode[index] &&
+                                        <div>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <Button variant="contained" onClick={handleEditConfirmationButtonClick(index)}>
+                                                            <SaveIcon />
+                                                        </Button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    }
+
+                                    {
                                         !itemsInEditMode[index] &&
                                         <IconButton id={`EditButton,${index},${value}`} name={`EditButton,${index},${value}`} onClick={handleEditButtonClick(`${index}`)}>
-                                            <UpdateIcon />
+                                            <EditIcon />
                                         </IconButton>
                                     }
                                 </td>
 
                                 <td>
                                     <IconButton id={`CheckButton,${index},${value}`} name={`CheckButton,${index},${value}`} onClick={handleDoneButtonClick(`${index}`)}>
-                                        <TaskIcon />
+                                        <DoneAllIcon />
                                     </IconButton>
-
-                                    {/*
-                                    <CheckIcon id={`CheckButton,${index},${value}`} name={`CheckButton,${index},${value}`} onClick={handleDoneButtonClick}/>
-                                    */}
                                 </td>
                             </tr>
-                        </table>
-                    </ListItem>
-                ))}
-            </List>
+                        ))}
+                    </tbody>
+                </Table>
+            }
         </Grid >
     );
 }
