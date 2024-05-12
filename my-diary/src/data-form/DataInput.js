@@ -112,7 +112,7 @@ export function DataForm() {
                                 <td>
                                     <InputLabel htmlFor="my-input">What's next?</InputLabel>
                                     <Input id="my-input" name="my-input" aria-describedby="my-helper-text" />
-                                    {/* <FormHelperText id="my-helper-text">Your plan</FormHelperText> */}
+                                    <FormHelperText id="my-helper-text"></FormHelperText>
                                 </td>
 
                                 <td>
@@ -136,7 +136,8 @@ export function DataForm() {
                     aria-label="basic table"
                     alignItems="center"
                     justifyContent="center"
-                    style={{ width: '60%', alignItems: 'center' }}>
+                    style={{ width: '60%', alignItems: 'center' }}
+                    sx={{ mt: 4 }}>
                     <thead>
                         <tr>
                             <th style={{ width: '80%', alignItems: 'center' }}>Task Description</th>
