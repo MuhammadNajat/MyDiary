@@ -139,7 +139,7 @@ export function DataForm() {
                     style={{ width: '60%', alignItems: 'center' }}>
                     <thead>
                         <tr>
-                            <th style={{ width: '80%', alignItems: 'center' }}>Task Details</th>
+                            <th style={{ width: '80%', alignItems: 'center' }}>Task Description</th>
                             <th></th>
                             <th></th>
                         </tr>
