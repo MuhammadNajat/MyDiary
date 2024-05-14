@@ -1,16 +1,8 @@
-import { Button, FormControl, FormHelperText, Grid, IconButton, Input, InputLabel, List, ListItem, ListItemText } from '@mui/material';
+import { Button, FormControl, FormHelperText, Grid, IconButton, Input, InputLabel } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import * as React from 'react';
-import UpdateIcon from '@mui/icons-material/Update';
-import TaskIcon from '@mui/icons-material/Task';
 import SaveIcon from '@mui/icons-material/Save';
 import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 
@@ -37,11 +29,15 @@ export function DataForm() {
         data.forEach((value, key) => {
             console.log(`${key}: ${value}`);
             //toDoList.push(value);
+            if(value.length == 0) {
+                return;
+            }
             const newItems = [...items, value];
             // Update the state with the new array
             setItems(newItems);
 
             const newItemsInEditMode = [...itemsInEditMode, false];
+            setItemsInEditMode(newItemsInEditMode);
         });
 
         const name = data.get("my-input");
@@ -78,6 +74,10 @@ export function DataForm() {
         let valueField = document.getElementById(`EditItem:${index}:${items[index]}`);
         console.log("New value: ", valueField.value);
 
+        if(valueField.value.length == 0) {
+            return;
+        }
+
         let newItems = []
         let newItemsInEditMode = []
         for (let i = 0; i < items.length; i++) {
@@ -99,7 +99,7 @@ export function DataForm() {
             direction="column"
             alignItems="center"
             justifyContent="center"
-            sx={{ minHeight: '100vh' }}
+            sx={{ minHeight: '100vh', mb:8 }}
             margin={2}
         >
             <Grid item xs={3}
@@ -111,8 +111,8 @@ export function DataForm() {
                             <tr>
                                 <td>
                                     <InputLabel htmlFor="my-input">What's next?</InputLabel>
-                                    <Input id="my-input" name="my-input" aria-describedby="my-helper-text" />
-                                    <FormHelperText id="my-helper-text"></FormHelperText>
+                                    <Input id="my-input" name="my-input" aria-describedby="my-helper-text" inputProps={{ maxLength: 50 }}/>
+                                    <i><FormHelperText id="my-helper-text">50 characters max</FormHelperText></i>
                                 </td>
 
                                 <td>
@@ -151,14 +151,15 @@ export function DataForm() {
                             <tr >
                                 <td >
                                     <table >
-                                        <tr >
-                                            <td >
+                                        <tr style={{ width: '80%', alignItems: 'center' }}>
+                                            <td>
                                                 {!itemsInEditMode[index] && <p style={{ alignItems: 'center' }}>{value}</p>}
                                             </td>
                                             <td>
                                                 {
                                                     itemsInEditMode[index] &&
-                                                    <Input id={`EditItem:${index}:${value}`} name={`EditItem:${index}:${value}`} defaultValue={`${value}`} aria-describedby="my-helper-text" />
+                                                    <Input id={`EditItem:${index}:${value}`} name={`EditItem:${index}:${value}`}
+                                                        inputProps={{ maxLength: 50 }} defaultValue={`${value}`}/>
                                                 }
                                             </td>
                                         </tr>
